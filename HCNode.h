@@ -3,6 +3,12 @@
 
 #include <iostream>
 
+/**
+ * Name: Daniel Huang
+ * Date: 2/10/2017
+ * Assignment: PA3
+ * Header file that contains constructors and function declarations
+ */
 typedef unsigned char byte;
 
 using namespace std;
