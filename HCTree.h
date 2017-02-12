@@ -8,6 +8,12 @@
 #include "BitInputStream.h"
 #include "BitOutputStream.h"
 
+/**
+ * Name: Daniel Huang
+ * Date: 2/10/2017
+ * Assignment: PA3
+ * Header file that contains constructors and function declarations
+ */
 using namespace std;
 
 /** A 'function class' for use as the Compare class in a

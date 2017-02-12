@@ -18,25 +18,32 @@ using namespace std;
 class HCNode {
 
 public:
-    int count;
+    int count; // the frequency of the symbol
     byte symbol; // byte in the file we're keeping track of
-    HCNode* c0;  // pointer to '0' child
-    HCNode* c1;  // pointer to '1' child
-    HCNode* p;   // pointer to parent
+    HCNode* c0;  // pointer to '0' child, null if leaf
+    HCNode* c1;  // pointer to '1' child, null if leaf
+    HCNode* parent;   // pointer to parent, null if root
 
+    
+    //the constructor of node, using member initializer list
     HCNode(int count,
       byte symbol,
       HCNode* c0 = 0,
       HCNode* c1 = 0,
-      HCNode* p = 0)
-        : count(count), symbol(symbol), c0(c0), c1(c1), p(p) { }
+      HCNode* parent = 0)
+        : count(count), symbol(symbol), c0(c0), c1(c1), parent(parent) { }
 
+    
+    
     /** Less-than comparison, so HCNodes will work in std::priority_queue
      *  We want small counts to have high priority.
      *  And we want to break ties deterministically.
      */
     bool operator<(const HCNode& other);
 };
+
+
+
 
 /** For printing an HCNode to an ostream
  *  Possibly useful for debugging.
