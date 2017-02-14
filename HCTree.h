@@ -35,7 +35,12 @@ public:
 class HCTree {
 private:
     HCNode* root;
+    
     vector<HCNode*> leaves;
+    
+    // the priority queue to store our nodes, with the overloaded compare class
+    std::priority_queue<HCNode*,std::vector<HCNode*>, HCNodePtrComp> pq;
+    
 
 public:
     // explicit keyword is used to avoid accidental implicit conversions
@@ -44,7 +49,17 @@ public:
     }
 
     ~HCTree();
-
+    
+    // the getter for the priority queue
+    std::priority_queue<HCNode*,std::vector<HCNode*>, HCNodePtrComp> queue() {
+        return this->pq;
+    }
+    
+    //the setter for the root of the tree
+    void setRoot(HCNode* p) {
+     this->root=p;
+    }
+    
     /** Use the Huffman algorithm to build a Huffman coding trie.
      *  PRECONDITION: freqs is a vector of ints, such that freqs[i] is 
      *  the frequency of occurrence of byte i in the message.
