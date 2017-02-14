@@ -9,6 +9,7 @@
  */
 
 
+
 /** Use the Huffman algorithm to build a Huffman coding trie.
  *  PRECONDITION: freqs is a vector of ints, such that freqs[i] is
  *  the frequency of occurrence of byte i in the message.
@@ -42,13 +43,20 @@ void build(const vector<int>& freqs){
         n1->parent=n3;
         n2->parent=n3;
         
+        //set the leaves vector to point to all leaf nodes
+        if(n1->c0==0 && n1->c1==0) {
+            tree.setLeaves(n1, n1->symbol);
+        }
+        if(n2->c0==0 && n2->c1==0) {
+            tree.setLeaves(n2, n2->symbol);
+        }
+        
         //push the combined tree back to queue
         tree.queue().push(n3);
     }
     
     //return the the final single big tree and point the root to it
     tree.setRoot(tree.queue().top());
-    
     
     
 }

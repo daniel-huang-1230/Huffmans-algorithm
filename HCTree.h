@@ -60,6 +60,18 @@ public:
      this->root=p;
     }
     
+    //the getter for the leaves
+    vector<HCNode*> getLeaves() {
+        return this->leaves;
+        
+    }
+    //the setter for leaves
+    void setLeaves(HCNode *p, int idx) {
+        
+        this->leaves[idx]=p;
+    }
+    
+    
     /** Use the Huffman algorithm to build a Huffman coding trie.
      *  PRECONDITION: freqs is a vector of ints, such that freqs[i] is 
      *  the frequency of occurrence of byte i in the message.
