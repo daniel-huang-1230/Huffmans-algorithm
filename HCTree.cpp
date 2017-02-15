@@ -133,6 +133,11 @@ void HCTree:: encode(byte symbol, ofstream& out) const {
  */
 int HCTree:: decode(ifstream& in) const {
     
+    for(int i=0; i<this->getLeaves().size();i++) {
+        if(this->getLeaves()[i]!=NULL) {
+            
+        }
+    }
     
     return 0;
 }

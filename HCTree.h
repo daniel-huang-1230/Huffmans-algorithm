@@ -52,6 +52,10 @@ public:
     
     ~HCTree();
     
+    //the getter for the root
+    HCNode* getRoot() {
+        return this->root;
+    }
     
     //the setter for the root of the tree
     void setRoot(HCNode* p) {

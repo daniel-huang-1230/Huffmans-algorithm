@@ -55,16 +55,19 @@ int main(int argc, char* argv[]) {
         //one per line
     }
     
-    in.open(infile); //open the input file again
+    in.open(infile); //open the input file again and read
     
     
     //write the code for each symbol(letter) in the file
-    for(int i=0; i<tree.getLeaves().size();i++) {
-        if(tree.getLeaves()[i]!=NULL) {
-        tree.encode(tree.getLeaves()[i]->symbol,out);
-        }
+
+    char nextChar;
+    while(1) {
+        nextChar=(unsigned char)in.get();
+        if(in.eof()) break;
+        
+        tree.encode(nextChar,out);
+        
     }
-    
     // Close both the input and output files
     out.close();
     
