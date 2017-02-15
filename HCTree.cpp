@@ -1,6 +1,6 @@
 #include "HCTree.h"
 #include "HCNode.h"
-
+#include <stack>
 /**
  * Name: Daniel Huang
  * Date: 2/13/2017
@@ -16,24 +16,24 @@
  *  POSTCONDITION:  root points to the root of the trie,
  *  and leaves[i] points to the leaf node containing byte i.
  */
-void build(const vector<int>& freqs){
+void HCTree::build(const vector<int>& freqs){
     
-    HCTree tree= HCTree();
+
     //build a "forest" of single nodes for each non-zero count byte
     for(int i=0; i<freqs.size();i++) {
         if(freqs[i]!=0) {
             HCNode* p=new HCNode(freqs[i],i);
-            tree.queue().push(p); //push the pointer of node to the queue
+            this->queue().push(p); //push the pointer of node to the queue
         }
     }
     
     //loop while there are more than 1 tree in the forest
-    while(tree.queue().size()>1) {
+    while(this->queue().size()>1) {
         //popped two symbols with the lowest freqs
-        HCNode* n1=tree.queue().top();
-        tree.queue().pop();
-        HCNode* n2=tree.queue().top();
-        tree.queue().pop();
+        HCNode* n1=this->queue().top();
+        this->queue().pop();
+        HCNode* n2=this->queue().top();
+        this->queue().pop();
         
         //combine these two nodes to a new tree
         HCNode* n3= new HCNode(n1->count+n2->count,n1->symbol);
@@ -44,19 +44,55 @@ void build(const vector<int>& freqs){
         n2->parent=n3;
         
         //set the leaves vector to point to all leaf nodes
-        if(n1->c0==0 && n1->c1==0) {
-            tree.setLeaves(n1, n1->symbol);
+        if(this->noChild(n1)) {
+            this->setLeaves(n1, n1->symbol);
         }
-        if(n2->c0==0 && n2->c1==0) {
-            tree.setLeaves(n2, n2->symbol);
+        if(this->noChild(n2)) {
+            this->setLeaves(n2, n2->symbol);
         }
         
         //push the combined tree back to queue
-        tree.queue().push(n3);
+        this->queue().push(n3);
     }
     
     //return the the final single big tree and point the root to it
-    tree.setRoot(tree.queue().top());
+    this->setRoot(this->queue().top());
     
     
 }
+
+
+
+
+
+/** Write to the given ofstream
+ *  the sequence of bits (as ASCII) coding the given symbol.
+ *  PRECONDITION: build() has been called, to create the coding
+ *  tree, and initialize root pointer and leaves vector.
+ *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT
+ *  BE USED IN THE FINAL SUBMISSION.
+ */
+void HCTree:: encode(byte symbol, ofstream& out) const {
+    std::stack<char> stack;
+    
+    //traverse up until reaching the root
+    while(this->getParent(this->getLeaves()[symbol])) {
+        if(this->getLeaves()[symbol]==
+           this->getParent(this->getLeaves()[symbol])->c0) {
+            stack.push('0');
+        }
+        else if(this->getLeaves()[symbol]==
+                this->getParent(this->getLeaves()[symbol])->c1) {
+             stack.push('1');
+        }
+    }
+    
+    //reverse the sequence of bits
+    while(!stack.empty()) {
+        out<<stack.top();
+        stack.pop();
+    }
+    
+    
+}
+

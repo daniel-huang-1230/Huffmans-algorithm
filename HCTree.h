@@ -60,8 +60,12 @@ public:
      this->root=p;
     }
     
+    HCNode* getParent(HCNode* p) const{
+        return p->parent;
+    }
+    
     //the getter for the leaves
-    vector<HCNode*> getLeaves() {
+    vector<HCNode*> getLeaves() const {
         return this->leaves;
         
     }
@@ -69,6 +73,14 @@ public:
     void setLeaves(HCNode *p, int idx) {
         
         this->leaves[idx]=p;
+    }
+    
+    //return true if the node is a leaf
+    bool noChild(HCNode*p) {
+        if(p->c0==0 && p->c1==0) {
+            return true;
+        }
+        return false;
     }
     
     
@@ -87,6 +99,7 @@ public:
      */
     void encode(byte symbol, BitOutputStream& out) const;
 
+    
     /** Write to the given ofstream
      *  the sequence of bits (as ASCII) coding the given symbol.
      *  PRECONDITION: build() has been called, to create the coding
