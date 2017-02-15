@@ -13,12 +13,20 @@ int main(int argc, char* argv[]) {
     
     
     ifstream in;
-    string infile=argv[1];
-    string outfile=argv[2];
+    std::string str1(argv[1]);
+    string infile=str1;
+    std::string str2(argv[2]);
+    string outfile=str2;
     
     in.open(infile); //open the file
     
-    std::vector<int> freqs= std::vector<int>(256); //create a vector to keep track of the counts
+    if ( in.peek() == std::ifstream::traits_type::eof() )
+    {
+        cout<<"The input file is empty"<<endl;
+        return 0;  //return w/o creating a Huffman Trees
+    }
+    
+    std::vector<int> freqs= std::vector<int>(256,0); //create a vector to keep track of the counts
     
     int nextInt=0;
     
@@ -34,15 +42,15 @@ int main(int argc, char* argv[]) {
     in.close(); //close the input file
     
     HCTree tree= HCTree();
-    
+   
     tree.build(freqs); //build the Huffman Tree
-    
+   
     ofstream out;
-    
+   
+
     out.open(outfile); //open the output file for writing
     
     for(int i=0; i<freqs.size();i++) {
-        
         out<<freqs[i]<<"\n";  //write 256 ints in the header portion
         //one per line
     }
@@ -52,14 +60,16 @@ int main(int argc, char* argv[]) {
     
     //write the code for each symbol(letter) in the file
     for(int i=0; i<tree.getLeaves().size();i++) {
-        if(tree.getLeaves()[i]->count!=0) {
-            tree.encode(tree.getLeaves()[i]->symbol,out);
+        if(tree.getLeaves()[i]!=NULL) {
+        tree.encode(tree.getLeaves()[i]->symbol,out);
         }
     }
     
     // Close both the input and output files
     out.close();
-    in.close();
     
+    in.close();  
+    
+ 
     return 0;
 }
