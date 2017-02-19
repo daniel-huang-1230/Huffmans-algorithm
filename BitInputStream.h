@@ -1,6 +1,7 @@
-//dummy header file for now
+#include <iostream>
+#include <fstream>
 
-class BitInputStream {
+class BitInputStream : iostream{
     
     
     
