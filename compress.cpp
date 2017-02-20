@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
     tree.build(freqs); //build the Huffman Tree
    
     ofstream out;
-   
+    BitOutputStream outBit=BitOutputStream(out);
 
     out.open(outfile); //open the output file for writing
     
@@ -61,13 +61,19 @@ int main(int argc, char* argv[]) {
     //write the code for each symbol(letter) in the file
 
     char nextChar;
-    while(1) {
+   
+    
+    while(1){
         nextChar=(unsigned char)in.get();
         if(in.eof()) break;
         
-        tree.encode(nextChar,out);
-        
+        //tree.encode(nextChar,out);
+        tree.encode(nextChar, outBit);
     }
+    outBit.flush(); //flush everything in the buffer to write to ostream
+    
+   
+    
     // Close both the input and output files
     out.close();
     

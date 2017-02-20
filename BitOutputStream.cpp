@@ -5,13 +5,12 @@
  * Name: Daniel Huang
  * Date: 2/10/2017
  * Assignment: PA3
- * Header file that contains constructors and function declarations
+ * The implementation of BitOutputStream methods
  */
 
 
 /* Send the buffer to the output, and clear it
  */
-
 int FULL=8; //to avoid magic number
 void BitOutputStream:: flush() {
     out.put(buf); //write whatever in the buffer to output stream
@@ -29,6 +28,7 @@ void BitOutputStream:: writeBit(int i){
         this->flush();
     }
     int leastBit;
+    
     //the least significant bit can only be 1 or 0
     if(i%2==0) {
         leastBit=0;
@@ -37,7 +37,8 @@ void BitOutputStream:: writeBit(int i){
         leastBit=1;
     }
     //use bitwise operations to write leastBit into the byte buffer
-    buf = buf | ( leastBit<<nbits);
+    buf = buf | ( leastBit<<(8-nbits-1));
     nbits++; //increment the number of bits that have been written
+    
     
 }

@@ -124,21 +124,39 @@ void HCTree:: encode(byte symbol, ofstream& out) const {
 }
 
 
-/** Return the symbol coded in the next sequence of bits (represented as
- *  ASCII text) from the ifstream.
+/** Write to the given BitOutputStream
+ *  the sequence of bits coding the given symbol.
  *  PRECONDITION: build() has been called, to create the coding
  *  tree, and initialize root pointer and leaves vector.
- *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT BE USED
- *  IN THE FINAL SUBMISSION.
  */
-int HCTree:: decode(ifstream& in) const {
+void HCTree:: encode(byte symbol, BitOutputStream& out) const{
+    std::stack<int> stack;
     
-    for(int i=0; i<this->getLeaves().size();i++) {
-        if(this->getLeaves()[i]!=NULL) {
-            
+    HCNode* curr=this->getLeaves()[symbol];
+    //traverse up until reaching the root
+    while(curr->parent) {
+        if(curr==curr->parent->c0) {
+            stack.push(0);
         }
+        else if(curr==curr->parent->c1) {
+            stack.push(1);
+        }
+        curr=curr->parent; //advance the curr pointer
     }
     
-    return 0;
+    
+    //reverse the sequence of bits and write it to the output file
+    while(!stack.empty()) {
+        out.writeBit(stack.top());
+        
+        stack.pop();
+    }
+
+    
 }
+
+
+
+
+
 

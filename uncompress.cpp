@@ -49,11 +49,11 @@ int main(int argc, char* argv[]) {
     
     
     ofstream out;
-    
     out.open(outfile);
     
+    
     HCNode* curr=tree.getRoot();
-    while(1) {
+    /*while(1) {
         nextInt=in.get()-'0';
         if(in.eof())  break;
         
@@ -71,7 +71,40 @@ int main(int argc, char* argv[]) {
                 curr=tree.getRoot(); //reset the curr point back to root
             }
         }
+    }*/
+    
+    
+    BitInputStream inBit = BitInputStream (in);
+    
+    int totalfreq = 0;
+    for(int i=0; i<freqs.size(); i++) {
+        
+        totalfreq+= freqs[i];
     }
+    int freq=0; //keep track of the added-up frequencies of all characters
+    while(freq<totalfreq) {
+        nextInt=inBit.readBit(); //read one bit at a time
+        if(inBit.in.eof())  break;
+
+        
+        if(nextInt==1) {
+            curr=curr->c1;
+            if(tree.noChild(curr)){ //reach the leaf with symbol
+                out<<curr->symbol; //write the sybol to output file
+                freq++;
+                curr=tree.getRoot(); //reset the curr point back to root
+            }
+        }
+        else if(nextInt==0) {
+            curr=curr->c0;
+            if(tree.noChild(curr)){ //reach the leaf with symbol
+                out<<curr->symbol; //write the sybol to output file
+                freq++;
+                curr=tree.getRoot(); //reset the curr point back to root
+            }
+        }
+    }
+    
     
     in.close();
     out.close();

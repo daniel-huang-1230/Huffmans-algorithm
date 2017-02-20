@@ -53,7 +53,7 @@ public:
     ~HCTree();
     
     //the getter for the root
-    HCNode* getRoot() {
+    HCNode* getRoot() const{
         return this->root;
     }
     
@@ -74,7 +74,7 @@ public:
     }
     
     //return true if the node is a leaf
-    bool noChild(HCNode*p) {
+    bool noChild(HCNode*p) const{
         if(p->c0==0 && p->c1==0) {
             return true;
         }
