@@ -123,6 +123,11 @@ public:
      */
     int decode(ifstream& in) const;
     
+    /* My own method that would traverse through the tree and write to header file
+       more efficiently
+     */
+    void writeHeader(HCNode* curr, ostream& out);
+    
 };
 
 #endif // HCTREE_H

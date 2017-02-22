@@ -42,26 +42,60 @@ int main(int argc, char* argv[]) {
     in.close(); //close the input file
     
     HCTree tree= HCTree();
-   
+    
     tree.build(freqs); //build the Huffman Tree
-   
+    
     ofstream out;
     BitOutputStream outBit=BitOutputStream(out);
-
+    
     out.open(outfile); //open the output file for writing
     
+     for(int i=0; i<freqs.size();i++) {
+     //out<<freqs[i]<<"\n";  //write 256 ints in the header portion
+         
+         //try to encode the header in a more efficient manner,
+        
+         if(freqs[i]!=0){
+             out<<freqs[i]<<"\n";
+             out<<i<<"\n"; //the index
+            // out<<-1<<"\n";
+         }
+     }
+     out<<-1<<"\n"; //denote the end of header
+    
+  
+   /* HCNode* curr= tree.getRoot();
+    int totalfreq=0;
+    
     for(int i=0; i<freqs.size();i++) {
-        out<<freqs[i]<<"\n";  //write 256 ints in the header portion
-        //one per line
+        if(freqs[i]!=0){
+            totalfreq+=freqs[i];
+        }
     }
+    int symbolNum=0;
+    
+    for(int i=0; i<tree.getLeaves().size(); i++) {
+        if(tree.getLeaves()[i]!=0) {
+            symbolNum++;
+        
+        }
+    }
+  
+    out<<symbolNum<<"\n";  //write the total number of distinct symbols to first line
+    
+    out<<totalfreq<<"\n"; //record the total frequency on the second line
+    
+    tree.writeHeader(curr, out); //record the structure of the tree in header!!
+    
+    */
     
     in.open(infile); //open the input file again and read
     
     
     //write the code for each symbol(letter) in the file
-
+    
     char nextChar;
-   
+    
     
     while(1){
         nextChar=(unsigned char)in.get();
@@ -72,13 +106,13 @@ int main(int argc, char* argv[]) {
     }
     outBit.flush(); //flush everything in the buffer to write to ostream
     
-   
+    
     
     // Close both the input and output files
     out.close();
     
-    in.close();  
+    in.close();
     
- 
+    
     return 0;
 }

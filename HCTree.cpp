@@ -151,7 +151,29 @@ void HCTree:: encode(byte symbol, BitOutputStream& out) const{
         
         stack.pop();
     }
+    
+    
+}
 
+/* My own method that would traverse through the tree and write to header file
+ more efficiently
+ */
+void HCTree::writeHeader(HCNode* curr, ostream& out) {
+    if(this->noChild(curr)){
+        out<<curr->symbol<<"\n";
+        return; //leaf node reached, base case
+    }
+    
+    if(curr->c0) {
+        
+        out<<0<<"\n";
+        writeHeader(curr->c0, out);
+    }
+    if(curr->c1) {
+        
+        out<<1<<"\n";
+        writeHeader(curr->c1, out);
+    }
     
 }
 

@@ -30,62 +30,77 @@ int main(int argc, char* argv[]) {
     }
     
     std::vector<int> freqs= std::vector<int>(256);
-
+    
+    
+    //   int totalSymbol =0;
+    
     
     int nextInt=0;
-    string mstring;
-    for(int idx=0; idx<freqs.size();idx++) {
-        
+    int nextIdx=0;
+    
+    //use the refined header info to get frequencies
+    while(1) {
+        string mstring;
+        string mstring2;
         getline(in,mstring);
         nextInt=stoi(mstring);
-        if(in.eof())  break;
+        if(nextInt==-1) break;
+        getline(in,mstring2);
+        nextIdx=stoi(mstring2);
         
-        freqs[idx]=nextInt; //populate the vector in order to recreate a tree
+        freqs[nextIdx]=nextInt;
     }
     
-       HCTree tree= HCTree();
+    HCTree tree= HCTree();
+    
     
     tree.build(freqs); //reconstruct the same Huffman Tree
     
     
+    
+    
+    
     ofstream out;
     out.open(outfile);
+    HCNode* curr= tree.getRoot();
     
-    
-    HCNode* curr=tree.getRoot();
-    /*while(1) {
-        nextInt=in.get()-'0';
-        if(in.eof())  break;
-        
-        if(nextInt==1) {
-            curr=curr->c1;
-            if(tree.noChild(curr)){ //reach the leaf with symbol
-                out<<curr->symbol; //write the sybol to output file
-                curr=tree.getRoot(); //reset the curr point back to root
-            }
-        }
-        else if(nextInt==0) {
-            curr=curr->c0;
-            if(tree.noChild(curr)){ //reach the leaf with symbol
-                out<<curr->symbol; //write the sybol to output file
-                curr=tree.getRoot(); //reset the curr point back to root
-            }
-        }
-    }*/
-    
+    /* while(1) {
+     nextInt=in.get()-'0';
+     if(in.eof())  break;
+     
+     if(nextInt==1) {
+     curr=curr->c1;
+     if(tree.noChild(curr)){ //reach the leaf with symbol
+     out<<curr->symbol; //write the sybol to output file
+     curr=tree.getRoot(); //reset the curr point back to root
+     }
+     }
+     else if(nextInt==0) {
+     curr=curr->c0;
+     if(tree.noChild(curr)){ //reach the leaf with symbol
+     out<<curr->symbol; //write the sybol to output file
+     curr=tree.getRoot(); //reset the curr point back to root
+     }
+     }
+     }
+     */
     
     BitInputStream inBit = BitInputStream (in);
-    
+    curr=tree.getRoot();
     int totalfreq = 0;
     for(int i=0; i<freqs.size(); i++) {
-        
-        totalfreq+= freqs[i];
+        if(freqs[i]!=0) {
+            totalfreq+= freqs[i];
+        }
     }
+    
+    
+    
     int freq=0; //keep track of the added-up frequencies of all characters
     while(freq<totalfreq) {
         nextInt=inBit.readBit(); //read one bit at a time
         if(inBit.in.eof())  break;
-
+        
         
         if(nextInt==1) {
             curr=curr->c1;
@@ -108,5 +123,6 @@ int main(int argc, char* argv[]) {
     
     in.close();
     out.close();
+    
     return 0;
 }
