@@ -113,6 +113,6 @@ int main(int argc, char* argv[]) {
     
     in.close();
     
-    
+    cout<<"File compressed!"<<endl;
     return 0;
 }
