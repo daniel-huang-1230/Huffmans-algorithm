@@ -1,4 +1,4 @@
-# Huffman-s-algorithm
+# Huffmans-algorithm
 Data structure project from 2017 winter at UC San Diego. Course: CSE 100 Advanced Data Structure
 
 # Project Overview
