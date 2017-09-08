@@ -50,18 +50,43 @@ int main(int argc, char* argv[]) {
     
     out.open(outfile); //open the output file for writing
     
+    char bufArray[2048];
+    for(int i=0; i<2048; i++){
+        bufArray[i]=NULL;
+    }
+    
      for(int i=0; i<freqs.size();i++) {
      //out<<freqs[i]<<"\n";  //write 256 ints in the header portion
          
          //try to encode the header in a more efficient manner,
         
          if(freqs[i]!=0){
-             out<<freqs[i]<<"\n";
-             out<<i<<"\n"; //the index
-            // out<<-1<<"\n";
+             char c= freqs[i]+'0';
+             char idx=i+'0';
+             int j=0;
+             while(bufArray[j]!=NULL) {
+                 j++; //find a empty index to insert
+             }
+             bufArray[j]=c;
+             
+             bufArray[j+1]=idx;
+             
+            //out<<freqs[i]<<"\n";
+             //out<<i<<"\n"; //the index
+         
          }
      }
-     out<<-1<<"\n"; //denote the end of header
+    for(int i=0; i<2048;i++){
+        if(bufArray[i]!=NULL){
+            int byte=(int)bufArray[i]-'0';
+            
+            out<<byte<<"\n";
+           
+        }
+        
+    }
+    
+         out<<-1<<"\n"; //denote the end of header
     
   
    /* HCNode* curr= tree.getRoot();

@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
         nextInt=stoi(mstring);
         if(nextInt==-1) break;
         getline(in,mstring2);
-        nextIdx=stoi(mstring2);
+        nextIdx=stoi(mstring2)+256;
         
         freqs[nextIdx]=nextInt;
     }
