@@ -6,15 +6,15 @@ Data structure project from 2017 winter at UC San Diego. Course: CSE 100 Advance
 This is my third personal assignment in the course **Advanced Data Structure** ( CSE 100 ) from **UC San Diego**
 
 
-What I did:
+What I learned:
 
-1.Implement **Huffman's algorithm** using efficient supporting data structures to support encoding and decoding of files
+1.Implement **Huffman's algorithm** using efficient supporting data structures to support **encoding and decoding** of files
 
 2.Justify why your algorithm runs correctly on test examples using ASCII 
 
-3.Extend the basic I/O functionality of C++ to include bitwise operations
+3.Extend the basic I/O functionality of C++ to include **bitwise operations**
 
-4.Refactor code that you have written to make it more readable or to otherwise improve the design
+4.**Refactor code** that you have written to make it more readable or to otherwise improve the design
 
 **NOTE**: We were allowed to either team up with other students or try to complete the project alone. I chose to go **solo**.
 
