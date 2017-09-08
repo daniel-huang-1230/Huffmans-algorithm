@@ -23,7 +23,9 @@ What I did:
  
 # Instructions below are copied from the original [assignment page](https://sites.google.com/a/eng.ucsd.edu/cse-100-winter-2017/assignments/assignment-3)
 
+
 Set Up
+
 As done in earlier assignments, follow the instructions provided in this PPT or video to get started with the assignment. 
 Provided files:  
 HCNode.h, HCTree.h, Makefile, refcompress, refuncompress, .gitignore.
@@ -32,8 +34,7 @@ You should NOT push the input test files (they are large).
 We have provided a .gitignore file that won't allow you to add these files to your repo.
 If there is some specific file you want to add that is not allowed by the .gitignore file, simply open the .gitignore file in a text editor and add a new line at the end with the syntax "!fileName" where fileName is the name of the file you want to add.
 Please do not use any other executable names than the ones in your Makefile. Our grading scripts depend on your executables being named "compress" and "uncompress" exactly. 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 Checkpoint Instructions 
 Goal: To implement Huffman's Algorithm, using ASCII I/O to write and read the encoded files.
