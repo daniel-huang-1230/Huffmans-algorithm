@@ -46,13 +46,14 @@ The HCNode and HCTree implementations will help you create Huffman tree/code for
 There are suggested methods in the HCTree.h header file that you might find useful specifically for this checkpoint, but that you should NOT use for the final submission. 
 
 Implementation Checklist:
+
 Implement the HCTree.h methods in a new file HCTree.cpp. You can modify both files in any way you want. 
 Implement the HCNode.h methods (overloaded operator) in a new file HCNode.cpp. You can modify both files in any way you want. 
 Because you are not required to implement or use BitInputStream and BitOutputStream for the checkpoint, you will either need to remove all references to them from the provided files (by commenting them out) and edit the Makefile, or create "dummy" versions of these classes (with both header and implementation files) to get the code to compile.
 Add HCTree.cpp and HCNode.cpp (and all other files you create that are required for the submission) into your repo
  Note: When implementing Huffman's algorithm, you should use multiple data structures (e.g., a priority queue, etc). You should also use good object-oriented design. For example, since a Huffman code tree will be used by both your compress and uncompress programs,  it makes sense to encapsulate its functionality inside a single class accessible by both programs. With a good design, the main methods in the compress and uncompress programs will be quite simple; they will create objects of other classes and call their methods to do the necessary work.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 2. Implement Compression
 
@@ -98,7 +99,7 @@ Probably the easiest way to do it is to save the frequency counts of the bytes i
 ... 
 Where 0's represent characters with no occurrences in the file (e.g. above the ASCII values 0, 1 and 2 do not occur in the file), and any non-zero number represents the number of times the ASCII value occurs in the file.
 
- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 3. Implement Uncompress
 
@@ -117,7 +118,6 @@ Open the output file for writing.
 Using the Huffman coding tree, decode the bits from the input file into the appropriate sequence of bytes, writing them to the output file.
 Close the input and output files.
 Test your solution. For more details, see the "Testing" section in the PA below 
- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 4. Writeup
 
@@ -129,11 +129,10 @@ Record the encoded output in Checkpoint.pdf
 Use the same input to manually construct a Huffman coding tree. Draw the Huffman coding tree, describe how you build the tree and how you find the code word for each byte in Checkpoint.pdf.
 Manually encode the strings and compare with your compressor output. If your output is wrong, explain why your hand-coded text is different from your compressor output and how you fixed it. If you never encountered this situation, mention it in your writeup.
 We expect the writeup to be 1-3 pages
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Final Submission
+
 1. Extend your functionality to use Bitwise I/O to actually compress the files
 
 You will now implement a full Huffman Compression program along with bitwise I/O.  
@@ -162,9 +161,9 @@ The reference solution header is not very efficient.  It uses 4-byte ints to sto
 In order to earn full credit for your final submission, you must BEAT our reference solution by coming up with a more efficient way to represent this header.  
 
 There are several possible solutions, but a good approach is to represent the structure of the tree itself in the header.  With some cleverness, it is possible to optimize the header size to about 10*M bits, where M is the number of distinct byte values that actually appear in the input file. However, we strongly encourage you to implement the naive (1024-byte) approach first, and do not attempt to reduce the size of the header until you’ve gotten your compress and uncompress to work correctly for the provided inputs.
- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
- 2. Code Refactoring 
+ 
+ 
+2. Code Refactoring 
 
 
 Your final task for this assignment has nothing to do with Huffman coding.  You will refactor code that you have written on a previous assignment to make it better.
